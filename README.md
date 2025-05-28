@@ -1,44 +1,34 @@
-<!-- # React + Vite
+ # 🇮🇳 Veero Ki Seva
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  A fullstack platform that connects donors to the families of Indian martyrs for direct support — including features like AI-powered chat assistance, analytics dashboard, and secure authentication.
 
-Currently, two official plugins are available:
+  ---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  ## 🔧 Tech Stack
 
-## Expanding the ESLint configuration
+  - **Frontend**: React.js (TailwindCSS, TypeScript)  
+  - **Backend**: Node.js + Express  
+  - **Database**: MongoDB / PostgreSQL  
+  - **AI**: OpenAI Chatbot Integration  
+  - **Deployment**: AWS EC2, S3, Route 53  
+  - **Others**: JWT Auth, REST APIs  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project. -->
+  ---
 
-# 🇮🇳 Veero Ki Seva
+  ## 🚀 Features
 
-A fullstack platform that connects donors to the families of Indian martyrs for direct support — including features like AI-powered chat assistance, analytics dashboard, and secure authentication.
+  - 👤 Donor & Army Family Login/Signup  
+  - 🧠 GenAI Chatbot Assistance  
+  - 🎂 Birthday & Event Support System  
+  - 📈 Data Analytics Dashboard  
+  - 🔐 Secure Authentication & Routing  
 
----
+  ---
 
-## 🔧 Tech Stack
+  ## 📁 Project Structure
 
-- **Frontend**: React.js (TailwindCSS, TypeScript)
-- **Backend**: Node.js + Express
-- **Database**: MongoDB / PostgreSQL
-- **AI**: OpenAI Chatbot Integration
-- **Deployment**: AWS EC2, S3, Route 53
-- **Others**: JWT Auth, REST APIs
-
----
-
-## 🚀 Features
-
-- 👤 Donor & Army Family Login/Signup  
-- 🧠 GenAI Chatbot Assistance  
-- 🎂 Birthday & Event Support System  
-- 📈 Data Analytics Dashboard  
-- 🔐 Secure Authentication & Routing  
-
----
-
-## 📁 Project Structure
+/client → React frontend
+/server → Node.js backen
 
 ---
 
@@ -46,15 +36,18 @@ A fullstack platform that connects donors to the families of Indian martyrs for 
 
 ### Frontend
 
-```bash
 cd client
 npm install
 npm start
 
-Backend
+### Backend
 
 cd server
 npm install
 npm run dev
-🧠 Inspiration
+
+## 🧠 Inspiration
 Built with heart to honor and support the brave families of India’s Veers. Jai Hind 🇮🇳
+
+
+---
