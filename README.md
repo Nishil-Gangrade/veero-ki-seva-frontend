@@ -11,7 +11,6 @@ Currently, two official plugins are available:
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project. -->
 
-
 # 🇮🇳 Veero Ki Seva
 
 A fullstack platform that connects donors to the families of Indian martyrs for direct support — including features like AI-powered chat assistance, analytics dashboard, and secure authentication.
@@ -31,34 +30,31 @@ A fullstack platform that connects donors to the families of Indian martyrs for 
 
 ## 🚀 Features
 
-- 👤 Donor & Army Family Login/Signup
-- 🧠 GenAI Chatbot Assistance
-- 🎂 Birthday & Event Support System
-- 📈 Data Analytics Dashboard
-- 🔐 Secure Authentication & Routing
+- 👤 Donor & Army Family Login/Signup  
+- 🧠 GenAI Chatbot Assistance  
+- 🎂 Birthday & Event Support System  
+- 📈 Data Analytics Dashboard  
+- 🔐 Secure Authentication & Routing  
 
 ---
 
 ## 📁 Project Structure
 
-/client → React frontend
-/server → Node.js backend
-
-yaml
-Copy
-Edit
-
 ---
 
 ## 📦 Installation
 
+### Frontend
+
 ```bash
-# Frontend
 cd client
 npm install
 npm start
 
-# Backend
+Backend
+
 cd server
 npm install
 npm run dev
+🧠 Inspiration
+Built with heart to honor and support the brave families of India’s Veers. Jai Hind 🇮🇳
