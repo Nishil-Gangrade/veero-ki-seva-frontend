@@ -10,9 +10,11 @@ import DonorDonate from './pages/donor/DonorDonate';
 import DonorDashboard from './pages/donor/DonorDashboard';
 import DonorProfile from './pages/donor/DonorProfile'; 
 
+import ChatbotWidget from './components/ChatbotWidget';
 
 const App = () => {
   return (
+    <>
     <Routes>
       <Route path="/" element={<RoleSelection />} />
       {/* We'll add these pages next */}
@@ -26,6 +28,10 @@ const App = () => {
 <Route path="/donor/profile" element={<DonorProfile />} />
 
     </Routes>
+    <ChatbotWidget />
+    </>
+    
+    
   );
 };
 
