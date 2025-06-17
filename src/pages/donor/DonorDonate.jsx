@@ -1,47 +1,95 @@
 // src/pages/donor/DonorDonate.jsx
 import DonorNavbar from '../../components/DonorNavbar';
 import bgImage from '../../assets/images/frontpage1.jpg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-
-const dummyEvents = {
-  event1: "Support Families of Martyrs",
-  event2: "Medical Aid for Veterans",
-  event3: "Rehabilitation Programs",
-  event4: "Children's Education Drive",
-};
+import { donate, fetchDonations } from '../../utils/api'; // Make sure this file exports these functions
 
 const DonorDonate = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const eventTitleFromParams = queryParams.get('eventTitle');
   const eventId = queryParams.get('eventId');
-  const selectedEventTitle = dummyEvents[eventId] || "General Donation";
+  const selectedEventTitle = eventTitleFromParams || 'General Donation';
 
-  const [donations, setDonations] = useState([
-    {
-      date: '2025-05-20',
-      amount: '₹500',
-      method: 'UPI',
-      message: 'In memory of our Veers',
-    },
-    {
-      date: '2025-05-15',
-      amount: '₹1000',
-      method: 'Credit Card',
-      message: 'Jai Hind 🇮🇳',
-    },
-  ]);
+  const [donations, setDonations] = useState([]);
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    amount: '',
+    method: '',
+    message: '',
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setShowThankYou(true);
-    }, 2000);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!form.name || !form.email || !form.amount || !form.method) {
+    alert("Please fill all required fields.");
+    return;
+  }
+
+  setIsSubmitting(true);
+
+  const razorpayKey = 'YOUR_RAZORPAY_KEY_ID'; // 🔁 replace with your actual Razorpay key
+
+  const options = {
+    key: razorpayKey,
+    amount: form.amount * 100, // amount in paise
+    currency: "INR",
+    name: "Veero Ki Seva",
+    description: `Donation for ${selectedEventTitle}`,
+    image: "/logo.png", // optional
+    handler: async function (response) {
+      try {
+        // After payment success, send donation to backend
+        await donate({
+          ...form,
+          razorpayPaymentId: response.razorpay_payment_id,
+          eventId,
+        });
+
+        const res = await fetchDonations(form.email);
+        setDonations(res.data);
+        setShowThankYou(true);
+        setForm({ name: '', email: '', amount: '', method: '', message: '' });
+      } catch (err) {
+        console.error(err);
+        alert("Failed to save donation.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    prefill: {
+      name: form.name,
+      email: form.email,
+    },
+    notes: {
+      message: form.message || "",
+      eventId: eventId || "General",
+    },
+    theme: {
+      color: "#EF6C00",
+    },
+    method: {
+      upi: true,
+      netbanking: true,
+      card: true,
+    },
   };
+
+  const rzp = new window.Razorpay(options);
+  rzp.open();
+};
+
+
+  useEffect(() => {
+    if (form.email) {
+      fetchDonations(form.email).then((res) => setDonations(res.data));
+    }
+  }, [form.email]);
 
   return (
     <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }}>
@@ -62,17 +110,52 @@ const DonorDonate = () => {
           <p className="text-center text-lg font-semibold text-orange-600 mb-6">{selectedEventTitle}</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input type="text" required placeholder="Full Name" className="w-full p-3 rounded-md border" />
-            <input type="email" required placeholder="Email" className="w-full p-3 rounded-md border" />
-            <input type="number" required placeholder="Amount (₹)" className="w-full p-3 rounded-md border" />
-            <select required className="w-full p-3 rounded-md border">
+            <input
+              type="text"
+              required
+              placeholder="Full Name"
+              className="w-full p-3 rounded-md border"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
+            <input
+              type="email"
+              required
+              placeholder="Email"
+              className="w-full p-3 rounded-md border"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+            />
+            <input
+              type="number"
+              required
+              placeholder="Amount (₹)"
+              className="w-full p-3 rounded-md border"
+              value={form.amount}
+              onChange={(e) => setForm({ ...form, amount: e.target.value })}
+            />
+            <select
+              required
+              className="w-full p-3 rounded-md border"
+              value={form.method}
+              onChange={(e) => setForm({ ...form, method: e.target.value })}
+            >
               <option value="">Select Payment Method</option>
               <option>UPI</option>
               <option>Credit Card</option>
               <option>Net Banking</option>
             </select>
-            <textarea placeholder="Message (Optional)" className="w-full p-3 rounded-md border" rows="3" />
-            <button type="submit" className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800">
+            <textarea
+              placeholder="Message (Optional)"
+              className="w-full p-3 rounded-md border"
+              rows="3"
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+            />
+            <button
+              type="submit"
+              className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800"
+            >
               {isSubmitting ? 'Processing...' : 'Proceed to Pay'}
             </button>
 
@@ -125,7 +208,9 @@ const DonorDonate = () => {
                 <tbody>
                   {donations.map((donation, index) => (
                     <tr key={index} className="border-b">
-                      <td className="p-3">{donation.date}</td>
+                      <td className="p-3">
+                        {new Date(donation.createdAt).toLocaleDateString()}
+                      </td>
                       <td className="p-3">{donation.amount}</td>
                       <td className="p-3">{donation.method}</td>
                       <td className="p-3">{donation.message}</td>

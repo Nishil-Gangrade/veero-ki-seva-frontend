@@ -1,9 +1,9 @@
 import DonorNavbar from '../../components/DonorNavbar';
 import bgImage from '../../assets/images/frontpage1.jpg';
-import dummy1 from '../../assets/images/dummy1.jpeg';
-import dummy2 from '../../assets/images/dummy2.jpeg';
-import dummy3 from '../../assets/images/dummy3.jpeg';
-import dummy4 from '../../assets/images/dummy4.jpeg';
+import dummy1 from '../../assets/images/birthday.png';
+import dummy2 from '../../assets/images/marrigeHome.png';
+import dummy3 from '../../assets/images/schoolHome.png';
+import dummy4 from '../../assets/images/hospitalHome.png';
 
 const DonorHome = () => {
   const cardImages = [dummy1, dummy2, dummy3, dummy4];
@@ -34,14 +34,14 @@ const DonorHome = () => {
         </div>
 
         {/* Right Section – Floating Cards */}
-        <div className="w-full md:w-80 mt-10 md:mt-0 md:ml-10 h-[500px] overflow-hidden relative">
+        <div className="w-full md:w-80 mt-10 md:mt-0 md:ml-10 h-[500px] overflow-hidden relative bg-contain">
           <div className="absolute animate-scrollUp flex flex-col gap-6">
             {cardImages.concat(cardImages).map((img, idx) => (
               <div
                 key={idx}
                 className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition hover:scale-105 cursor-pointer group"
               >
-                <img src={img} alt={`Donation ${idx + 1}`} className="w-full h-40 object-cover" />
+                <img src={img} alt={`Donation ${idx + 1}`} className="w-full h-40 bg-contain" />
                 <div className="p-3 text-gray-700 text-sm group-hover:text-orange-600">
                   Helping Veer Family #{(idx % 4) + 1}<br />
                   <span className="text-xs text-gray-500 group-hover:text-orange-700">Click to know how your donation changes lives.</span>
