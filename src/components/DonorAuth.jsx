@@ -30,9 +30,11 @@ const DonorAuth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
     const url = isSignup
-      ? 'http://localhost:5000/api/auth/signup'
-      : 'http://localhost:5000/api/auth/login';
+      ? `${baseURL}/api/auth/signup`
+      : `${baseURL}/api/auth/login`;
+
 
     try {
       const res = await axios.post(url, formData);
