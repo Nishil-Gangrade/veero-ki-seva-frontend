@@ -12,7 +12,8 @@ import DonorProfile from './pages/donor/DonorProfile';
 import LoginPage from './pages/DonorAuthPage';
 import SignupPage from './pages/DonorAuthPage';
 import ChatbotWidget from './components/ChatbotWidget';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   return (
     <>
@@ -31,6 +32,8 @@ const App = () => {
       <Route path="/signup" element={<SignupPage />} />
     </Routes>
     <ChatbotWidget />
+    <ToastContainer />
+
     </>
     
     
