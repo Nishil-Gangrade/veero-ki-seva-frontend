@@ -27,18 +27,28 @@ const DonorNavbar = () => {
         </div>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex gap-8 items-center">
-          <Link to="/donor/home" className="text-black font-medium hover:underline">Home</Link>
-          <Link to="/donor/events" className="text-black font-medium hover:underline">Events</Link>
-          <Link to="/donor/donate" className="text-black font-medium hover:underline">Donate</Link>
-          <Link to="/donor/dashboard" className="text-black font-medium hover:underline">Dashboard</Link>
-        </div>
+        <div className="hidden md:flex gap-4 items-center">
+  {[
+    { to: "/donor/home", label: "Home" },
+    { to: "/donor/events", label: "Events" },
+    { to: "/donor/donate", label: "Donate" },
+    { to: "/donor/dashboard", label: "Dashboard" },
+  ].map(({ to, label }) => (
+    <Link
+      key={to}
+      to={to}
+      className="text-black font-medium px-3 py-1 rounded-xl transition duration-200 ease-in-out hover:bg-black hover:text-white "
+    >
+      {label}
+    </Link>
+  ))}
+</div>
 
         {/* Right Section */}
         <div className="flex items-center gap-4">
           <button
             onClick={handleLogout}
-            className="hidden md:inline-block bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            className="text-red-600 font-medium px-3 py-1 rounded-xl transition duration-700 ease-in-out hover:bg-red-600 hover:text-white hover:scale-105"
           >
             Logout
           </button>

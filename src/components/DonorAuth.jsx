@@ -63,7 +63,7 @@ const DonorAuth = () => {
     <div>
       {/* Toast Message */}
       {showToast && (
-        <div className="fixed top-5  bg-black text-white py-2 px-4 rounded shadow-lg z-50 transition-all duration-300 ">
+        <div className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-black text-white py-2 px-4 rounded shadow-lg z-50 transition-all duration-300">
           {message}
         </div>
       )}

@@ -14,10 +14,10 @@ const DonorProfile = () => {
     email: "",
     phone: "",
     password: "",
-    profilePic: null,
+    profilePic: "",
   });
 
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
     if (donor) {
@@ -26,43 +26,57 @@ const DonorProfile = () => {
         email: donor.email || "",
         phone: donor.phone || "",
         password: "",
-        profilePic: donor.profilePic || null,
+        profilePic: donor.profilePic || "",
       });
       if (donor.profilePic) setPreview(donor.profilePic);
     }
   }, [donor]);
+
+  // Reset blob preview on first load (to avoid ERR_FILE_NOT_FOUND)
+  useEffect(() => {
+    if (profileData.profilePic?.startsWith("blob:")) {
+      setProfileData((prev) => ({ ...prev, profilePic: "" }));
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
   };
 
   const handleImageChange = async (e) => {
-  const file = e.target.files[0];
-  if (file) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const previewUrl = URL.createObjectURL(file);
+    setPreview(previewUrl);
+
     const formData = new FormData();
     formData.append("image", file);
 
     try {
-      const res = await fetch("https://your-backend-url/api/upload/profile-pic", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/upload/profile-pic`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const data = await res.json();
-      if (res.ok) {
-        setPreview(data.url); // preview image
-        setProfileData({ ...profileData, profilePic: data.url }); // save actual Cloudinary URL
-        toast.success("🖼️ Profile picture uploaded!");
-      } else {
-        toast.error("Image upload failed");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Image upload error");
-    }
-  }
-};
 
+      if (res.ok && data.url) {
+        setPreview(data.url);
+        setProfileData((prev) => ({ ...prev, profilePic: data.url }));
+        URL.revokeObjectURL(previewUrl);
+        toast.success("Profile picture uploaded!");
+      } else {
+        toast.error("Upload failed");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast.error("Something went wrong while uploading image.");
+    }
+  };
 
   const handleSave = () => {
     const updated = {
@@ -72,17 +86,25 @@ const DonorProfile = () => {
       profilePic: profileData.profilePic || donor.profilePic,
     };
 
-    setDonor(updated); // update in Context
+    setDonor(updated);
     toast.success("✔ Profile updated successfully!");
   };
 
   const previousDonations = [
-    { id: 1, event: "Medical Aid for Veterans", amount: 500, date: "2024-11-01" },
+    {
+      id: 1,
+      event: "Medical Aid for Veterans",
+      amount: 500,
+      date: "2024-11-01",
+    },
     { id: 2, event: "Education Drive", amount: 1000, date: "2025-01-10" },
   ];
 
   return (
-    <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }}>
+    <div
+      className="min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
       <div className="backdrop-blur-sm min-h-screen bg-black bg-opacity-50 overflow-y-auto">
         <DonorNavbar />
 
@@ -92,15 +114,33 @@ const DonorProfile = () => {
           {/* Profile Picture */}
           <div className="flex flex-col items-center mb-6">
             <div className="w-32 h-32 rounded-full border-4 border-green-500 overflow-hidden bg-gray-100">
-              <img src={preview || defaultProfilePic} alt="Profile" className="w-full h-full object-cover" />
+              <img
+                src={
+                  profileData.profilePic?.startsWith("blob:")
+                    ? defaultProfilePic
+                    : profileData.profilePic || defaultProfilePic
+                }
+                onError={(e) => {
+                  e.target.src = defaultProfilePic;
+                }}
+                alt="profile"
+                className="w-32 h-32 rounded-full object-cover"
+              />
             </div>
-            <input type="file" accept="image/*" onChange={handleImageChange} className="mt-4" />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="mt-4"
+            />
           </div>
 
           {/* Inputs */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Full Name
+              </label>
               <input
                 type="text"
                 name="name"
@@ -110,7 +150,9 @@ const DonorProfile = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Email
+              </label>
               <input
                 type="email"
                 name="email"
@@ -120,7 +162,9 @@ const DonorProfile = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Phone</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Phone
+              </label>
               <input
                 type="text"
                 name="phone"
@@ -130,7 +174,9 @@ const DonorProfile = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
               <input
                 type="password"
                 name="password"
@@ -160,7 +206,9 @@ const DonorProfile = () => {
                   className="bg-gray-100 p-4 rounded shadow-sm flex justify-between items-center"
                 >
                   <span>{donation.event}</span>
-                  <span>₹{donation.amount} on {donation.date}</span>
+                  <span>
+                    ₹{donation.amount} on {donation.date}
+                  </span>
                 </li>
               ))}
             </ul>
