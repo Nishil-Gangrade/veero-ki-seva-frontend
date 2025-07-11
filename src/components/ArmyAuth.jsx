@@ -44,7 +44,7 @@ const ArmyAuth = () => {
 
         // Navigate with replace to disable back
         setTimeout(() => {
-          Navigate('/army/Home', { replace: true });
+          Navigate('/army/dashboard', { replace: true });
         }, 1000);
       } else {
         showToastMessage("Signup successful! Please login.");
