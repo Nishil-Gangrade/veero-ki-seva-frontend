@@ -26,7 +26,7 @@ const DonorDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen relative">
+    <div className="pt-20 min-h-screen relative">
       {/* Background Blur */}
       <div className="absolute inset-0 bg-cover bg-center z-0" style={{ backgroundImage: `url(${bgImage})` }} />
       <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-0" />

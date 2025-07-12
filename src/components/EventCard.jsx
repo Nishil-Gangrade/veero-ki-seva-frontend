@@ -6,7 +6,7 @@ const EventCard = ({ event }) => {
   return (
     <div
       className="
-        relative w-[90%] max-w-sm md:max-w-md lg:max-w-lg 
+        relative w-[90%] max-w-lg md:max-w-md lg:max-w-lg 
         overflow-hidden rounded-2xl 
         shadow-lg group transition-all duration-500
         hover:shadow-orange-400

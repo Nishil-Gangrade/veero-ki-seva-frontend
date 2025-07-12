@@ -10,3 +10,6 @@
   background-size: 300% 300%;
   animation: gradientFlow 6s linear infinite;
 }
+html {
+  scroll-behavior: smooth;
+}
