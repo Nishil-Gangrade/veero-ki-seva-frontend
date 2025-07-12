@@ -1,7 +1,7 @@
 // src/pages/army/ArmyDashboard.jsx
 import { useNavigate } from 'react-router-dom';
 import ArmyNavbar from '../../components/ArmyNavbar';
-import bgImage from '../../assets/images/frontpage1.jpg';
+import bgImage from '../../assets/images/army.png';
 
 
 const ArmyDashboard = () => {
