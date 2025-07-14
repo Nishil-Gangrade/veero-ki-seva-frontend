@@ -41,8 +41,8 @@ const DonorNavbar = () => {
         <div className={`transition-all duration-500 flex items-center ${isScrolled ? "bg-gradient-to-r from-orange-500 via-white to-green-600 p-[2px] rounded-full" : ""}`}>
           <div className={`flex items-center transition-all duration-500
             ${isScrolled
-              ? "bg-white rounded-full px-4 py-1 space-x-4 text-sm shadow-md"
-              : "bg-white rounded-full px-6 py-2 space-x-8 text-base shadow-md"}`}
+              ? "bg-black  rounded-full px-4 py-1 space-x-4 text-sm shadow-md"
+              : "bg-white  rounded-full px-6 py-2 space-x-8 text-base shadow-md"}`}
           >
             {[
               { to: "/donor/home", label: "Home" },
@@ -103,3 +103,4 @@ const DonorNavbar = () => {
 };
 
 export default DonorNavbar;
+// make changes in this to make navbar hright more also Navbar background turns black on scroll, with text turning white.

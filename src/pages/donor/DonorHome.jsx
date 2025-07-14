@@ -23,7 +23,7 @@ const DonorHome = () => {
         {/* Title & Description */}
         <div className="max-w-3xl">
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-6 drop-shadow-lg">
-            Welcome to Veero Ki Seva 🇮🇳
+            Welcome to Veero Ki Seva 
           </h1>
           <p className="text-lg sm:text-xl mb-4 drop-shadow">
             Thank you for being here. By donating or participating, you’re supporting the families of our real heroes — the bravehearts who gave their lives for our nation.
@@ -31,13 +31,31 @@ const DonorHome = () => {
           <p className="text-base sm:text-lg mb-8 drop-shadow ">
             We believe that true patriotism is when we stand by those who stood for us. Join us in the journey of impact and seva.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
             <Link to="/donor/donate" className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-orange-600 transition">
               Donate Now
             </Link>
             <a href="#footer" className="bg-white text-gray-800 font-semibold px-6 py-2 rounded-full hover:bg-gray-300 transition">
               Know More
             </a>
+          </div>
+
+          {/* Stats Tiles */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 justify-center mt-4 text-gray-900">
+            {[
+              { number: '500+', label: 'Families Helped' },
+              { number: '₹50L+', label: 'Funds Raised' },
+              { number: '1000+', label: 'Donors' },
+              { number: '50+', label: 'Events' }
+            ].map((stat, idx) => (
+              <div
+                key={idx}
+                className="bg-white bg-opacity-90 rounded-lg shadow-md p-4 transform hover:scale-105 hover:shadow-lg transition-all"
+              >
+                <div className="text-2xl sm:text-3xl font-bold text-orange-600">{stat.number}</div>
+                <div className="text-sm mt-1">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
