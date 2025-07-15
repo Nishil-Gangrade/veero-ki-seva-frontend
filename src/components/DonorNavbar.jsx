@@ -27,7 +27,7 @@ const DonorNavbar = () => {
 
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? "bg-white/1 " : "bg-stone-900 bg-opacity-80 backdrop-blur-sm shadow-md"}`}>
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-2">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
 
         {/* Logo - fades and slides on scroll */}
         <div
@@ -41,8 +41,8 @@ const DonorNavbar = () => {
         <div className={`transition-all duration-500 flex items-center ${isScrolled ? "bg-gradient-to-r from-orange-500 via-white to-green-600 p-[2px] rounded-full" : ""}`}>
           <div className={`flex items-center transition-all duration-500
             ${isScrolled
-              ? "bg-black  rounded-full px-4 py-1 space-x-4 text-sm shadow-md"
-              : "bg-white  rounded-full px-6 py-2 space-x-8 text-base shadow-md"}`}
+              ? "bg-black text-white rounded-full px-6 py-2 space-x-6 text-sm shadow-md"
+              : "bg-white text-black rounded-full px-6 py-2 space-x-8 text-base shadow-md"}`}
           >
             {[
               { to: "/donor/home", label: "Home" },
@@ -53,7 +53,7 @@ const DonorNavbar = () => {
               <Link
                 key={to}
                 to={to}
-                className="text-gray-800 font-medium hover:text-orange-600 transition"
+                className="font-medium hover:text-orange-600 transition"
               >
                 {label}
               </Link>

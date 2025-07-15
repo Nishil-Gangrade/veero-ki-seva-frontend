@@ -41,7 +41,7 @@ const DonorHome = () => {
           </div>
 
           {/* Stats Tiles */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 justify-center mt-4 text-gray-900">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-white">
             {[
               { number: '500+', label: 'Families Helped' },
               { number: '₹50L+', label: 'Funds Raised' },
@@ -50,7 +50,7 @@ const DonorHome = () => {
             ].map((stat, idx) => (
               <div
                 key={idx}
-                className="bg-white bg-opacity-90 rounded-lg shadow-md p-4 transform hover:scale-105 hover:shadow-lg transition-all"
+                className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300"
               >
                 <div className="text-2xl sm:text-3xl font-bold text-orange-600">{stat.number}</div>
                 <div className="text-sm mt-1">{stat.label}</div>
