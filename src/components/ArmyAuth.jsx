@@ -30,10 +30,11 @@ const ArmyAuth = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const url = isSignup
-      ? 'http://localhost:5000/api/auth/signup'
-      : 'http://localhost:5000/api/auth/login';
+      ? `${API_BASE_URL}/api/auth/signup`
+      : `${API_BASE_URL}/api/auth/login`;
 
     try {
       const res = await axios.post(url, formData);
