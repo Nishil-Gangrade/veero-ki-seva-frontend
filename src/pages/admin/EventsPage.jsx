@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CheckCircle, XCircle, Clock, Calendar, MapPin, Users } from 'lucide-react';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+console.log("API_BASE_URL is :", API_BASE_URL);
 
 const EventsPage = () => {
   const [events, setEvents] = useState([]);
@@ -13,7 +15,7 @@ const EventsPage = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/pending-events');
+      const response = await axios.get(`${API_BASE_URL}/api/admin/pending-events`);
       setEvents(response.data);
     } catch (error) {
       console.error('Failed to fetch pending events:', error);
@@ -22,12 +24,9 @@ const EventsPage = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      // Send update status API
-      await axios.post(`http://localhost:5000/api/admin/${status}-event/${id}`);
-      
-      // Update local state after backend success
+      await axios.post(`${API_BASE_URL}/api/admin/${status}-event/${id}`);
       setEvents(prevEvents =>
-        prevEvents.map(e => e._id === id ? { ...e, status } : e)
+        prevEvents.map(e => e._id === id ? { ...e, status: status.charAt(0).toUpperCase() + status.slice(1) } : e)
       );
     } catch (error) {
       console.error('Failed to update status', error);
