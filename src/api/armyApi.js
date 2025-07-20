@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
 // Submit Army Event
 export const submitArmyEvent = async (eventData) => {
   try {
-    const response = await axios.post("http://localhost:5000/api/army/submit-event", eventData);
+    const response = await axios.post(`${API_BASE_URL}/api/army/submit-event`, eventData);
     return response.data;
   } catch (error) {
     console.error("Failed to submit army event", error);
@@ -14,7 +16,7 @@ export const submitArmyEvent = async (eventData) => {
 // Get Army's Own Events
 export const getMyArmyEvents = async (armyId) => {
   try {
-    const response = await axios.get(`http://localhost:5000/api/army/my-events/${armyId}`);
+    const response = await axios.get(`${API_BASE_URL}/api/army/my-events/${armyId}`);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch army events", error);
