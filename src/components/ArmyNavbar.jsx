@@ -1,61 +1,54 @@
-// src/components/ArmyNavbar.jsx
-import { Link, useNavigate } from 'react-router-dom';
-import defaultPP from '../assets/images/pp.webp'; // fallback profile pic
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Menu, X, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ArmyNavbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate('/army/login');
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navItems = [
+    { name: 'Home', path: '/army/dashboard' },
+    { name: 'Submit Event', path: '/army/submit-event' },
+    { name: 'My Events', path: '/army/my-events' },
+  ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-200 bg-opacity-80 backdrop-blur-md shadow-md px-6 py-4">
-      <div className="flex justify-between items-center max-w-7xl mx-auto">
-
-        {/* Logo */}
-        <div className="text-2xl font-extrabold bg-gradient-to-r from-green-600 via-white to-orange-500 bg-clip-text text-transparent animate-gradient">
+    <nav className="bg-gradient-to-r from-orange-100 via-white to-green-100 shadow sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <div className="text-2xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-orange-700 bg-clip-text text-transparent">
           वीरो की सेवा
         </div>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex gap-8 items-center">
-          <Link to="/army/dashboard" className="text-black font-medium hover:text-white hover:bg-black px-3 py-1 rounded transition">Home</Link>
-          <Link to="/army/submit-event" className="text-black font-medium hover:text-white hover:bg-black px-3 py-1 rounded transition">Submit Event</Link>
-          <Link to="/army/my-events" className="text-black font-medium hover:text-white hover:bg-black px-3 py-1 rounded transition">My Events</Link>
+        <div className="hidden md:flex space-x-6">
+          {navItems.map((item) => (
+            <Link key={item.name} to={item.path} className="hover:text-orange-600 font-medium">
+              {item.name}
+            </Link>
+          ))}
         </div>
 
-        {/* Right Section */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={handleLogout}
-            className="hidden md:inline-block bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-          >
-            Logout
+        <div className="md:hidden">
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
-
-          <div
-            style={{ backgroundImage: `url(${defaultPP})` }}
-            className="w-10 h-10 bg-cover bg-center rounded-full border-2 border-gray-300"
-          />
-
-          {/* Mobile Toggle */}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-black text-2xl">☰</button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden mt-4 flex flex-col items-center space-y-3">
-          <Link to="/army/dashboard" onClick={() => setMenuOpen(false)} className="text-black font-medium">Home</Link>
-          <Link to="/army/submit-event" onClick={() => setMenuOpen(false)} className="text-black font-medium">Submit Event</Link>
-          <Link to="/army/my-events" onClick={() => setMenuOpen(false)} className="text-black font-medium">My Events</Link>
-          <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-            Logout
-          </button>
+      {isMobileMenuOpen && (
+        <div className="px-4 pb-4 md:hidden space-y-2">
+          {navItems.map((item) => (
+            <Link key={item.name} to={item.path} className="block hover:text-orange-600">
+              {item.name}
+            </Link>
+          ))}
         </div>
       )}
     </nav>
