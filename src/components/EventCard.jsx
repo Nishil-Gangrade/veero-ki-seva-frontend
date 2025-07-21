@@ -1,29 +1,42 @@
-// src/components/EventCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const EventCard = ({ event }) => {
+  if (!event) return null;
+
   return (
     <div
       className="
-        relative w-[90%] max-w-lg md:max-w-md lg:max-w-lg 
-        overflow-hidden rounded-2xl 
-        shadow-lg group transition-all duration-500
-        hover:shadow-orange-400
+        w-[290px] h-[300px] bg-[#f1f1f3] p-6 
+        rounded-xl shadow-md cursor-pointer relative 
+        font-sans group flex flex-col justify-between
       "
     >
-      <img
-        src={event.image}
-        alt={event.title}
-        className="w-full h-60 object-cover group-hover:blur-sm transition-all duration-500"
-      />
-      <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 text-white flex flex-col justify-center items-center p-4 transition-all duration-500">
-        <h3 className="text-xl font-bold mb-2 text-center">{event.title}</h3>
-        <p className="text-sm mb-4 text-center">{event.description}</p>
-        <Link to={`/donor/donate?eventId=${event.id}&eventTitle=${encodeURIComponent(event.title)}`}>
-          <button className="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-full font-semibold transition">
-            Donate Now
-          </button>
+      <div>
+        <h3 className="text-xl font-bold group-hover:text-green-700">
+          {event.title}
+        </h3>
+
+        <p className="text-sm text-gray-700 mt-5">
+          {event.description}
+        </p>
+      </div>
+
+      <div className="flex justify-between items-center mt-4">
+        <div className="text-xs text-gray-500">
+          {new Date(event.date).toLocaleDateString()}
+        </div>
+
+        <Link
+          to={`/donor/donate?eventId=${event._id}&eventTitle=${encodeURIComponent(event.title)}`}
+          className="
+            bg-orange-600 text-white text-xs font-semibold
+            px-3 py-2 rounded-tl-xl rounded-br-xl
+            transition-all duration-200
+            group-hover:bg-green-700 group-hover:scale-110
+          "
+        >
+          Donate Now
         </Link>
       </div>
     </div>
