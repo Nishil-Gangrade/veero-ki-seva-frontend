@@ -98,7 +98,7 @@ const handleSubmit = async (e) => {
 
         {/* Header */}
         <div className="flex flex-col justify-center items-center text-white py-12 px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-3">🇮🇳 Support the Brave Families</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-3 mt-5">Support the Brave Families</h1>
           <p className="text-lg md:text-xl max-w-2xl">
             Your donation goes directly to the families of Indian martyrs. Jai Hind!
           </p>

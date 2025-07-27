@@ -134,7 +134,7 @@ const EventsPage = () => {
         <DonorNavbar />
 
         <div className="text-center py-12 px-4">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg mt-5">
             Support Our <span className="bg-gradient-to-r from-orange-400 to-green-400 bg-clip-text text-transparent">Heroes</span>
           </h1>
 
