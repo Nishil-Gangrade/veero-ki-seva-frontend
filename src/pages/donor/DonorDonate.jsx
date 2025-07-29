@@ -25,75 +25,77 @@ const DonorDonate = () => {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-
   if (!form.name || !form.email || !form.amount || !form.method) {
-    alert("Please fill all required fields.");
-    return;
+    return alert("Please fill all required fields.");
   }
 
   setIsSubmitting(true);
 
-  const razorpayKey = 'YOUR_RAZORPAY_KEY_ID'; // 🔁 replace with your actual Razorpay key
+  try {
+    // 1. Create Razorpay Order
+    const orderRes = await fetch('http://localhost:5000/api/payment/create-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: form.amount })
+    });
 
-  const options = {
-    key: razorpayKey,
-    amount: form.amount * 100, // amount in paise
-    currency: "INR",
-    name: "Veero Ki Seva",
-    description: `Donation for ${selectedEventTitle}`,
-    image: "/logo.png", // optional
-    handler: async function (response) {
-      try {
-        // After payment success, send donation to backend
-        await donate({
-          ...form,
-          razorpayPaymentId: response.razorpay_payment_id,
-          eventId,
-        });
+    const orderData = await orderRes.json();
 
-        const res = await fetchDonations(form.email);
-        setDonations(res.data);
-        setShowThankYou(true);
-        setForm({ name: '', email: '', amount: '', method: '', message: '' });
-      } catch (err) {
-        console.error(err);
-        alert("Failed to save donation.");
-      } finally {
+    // 2. Setup Razorpay payment options
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Replace with your test key
+      amount: orderData.amount,
+      currency: orderData.currency,
+      order_id: orderData.id,
+      name: "Veero Ki Seva",
+      description: `Donation for ${selectedEventTitle}`,
+      handler: async function (response) {
+        try {
+          // 3. Save to backend after success
+          await donate({
+            ...form,
+            razorpayPaymentId: response.razorpay_payment_id,
+            eventId,
+          });
+
+          const res = await fetchDonations(form.email);
+          setDonations(res.data);
+          setShowThankYou(true);
+          setForm({ name: '', email: '', amount: '', method: '', message: '' });
+        } catch (err) {
+          alert("Donation save failed!");
+        }
         setIsSubmitting(false);
-      }
-    },
-    prefill: {
-      name: form.name,
-      email: form.email,
-    },
-    notes: {
-      message: form.message || "",
-      eventId: eventId || "General",
-    },
-    theme: {
-      color: "#EF6C00",
-    },
-    method: {
-      upi: true,
-      netbanking: true,
-      card: true,
-    },
-  };
+      },
+      prefill: {
+        name: form.name,
+        email: form.email,
+      },
+      notes: {
+        message: form.message,
+        eventId,
+      },
+      theme: {
+        color: "#EF6C00",
+      },
+    };
 
-  const rzp = new window.Razorpay(options);
-  rzp.open();
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } catch (err) {
+    alert("Payment initiation failed.");
+    console.error(err);
+    setIsSubmitting(false);
+  }
 };
 
 
-  useEffect(() => {
-    if (form.email) {
-      fetchDonations(form.email).then((res) => setDonations(res.data));
-    }
-  }, [form.email]);
-
   return (
-    <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }}>
-      <div className="backdrop-blur-sm min-h-screen bg-black bg-opacity-50 overflow-y-auto">
+    <div className="min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url(${bgImage})` }}>
+      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/60"></div>
+      <div className="absolute inset-0 backdrop-blur-sm"></div>
+
+      <div className="relative z-10">
         <DonorNavbar />
 
         {/* Header */}
@@ -103,6 +105,8 @@ const handleSubmit = async (e) => {
             Your donation goes directly to the families of Indian martyrs. Jai Hind!
           </p>
         </div>
+        
+
 
         {/* Form */}
         <div id="donate" className="max-w-xl mx-auto bg-white bg-opacity-90 rounded-2xl p-8 shadow-xl mb-10">
@@ -188,6 +192,7 @@ const handleSubmit = async (e) => {
             </div>
           </div>
         )}
+        
 
         {/* History */}
         <div className="max-w-4xl mx-auto bg-white bg-opacity-90 p-6 rounded-xl shadow-xl mb-20">

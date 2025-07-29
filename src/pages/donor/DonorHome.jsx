@@ -21,15 +21,18 @@ const DonorHome = () => {
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[80vh] text-center text-white px-4">
         {/* Title & Description */}
-        <div className="max-w-3xl">
+        <div className="max-w-3xl mt-16">
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-6 drop-shadow-lg">
             Welcome to Veero Ki Seva 
           </h1>
           <p className="text-lg sm:text-xl mb-4 drop-shadow">
             Thank you for being here. By donating or participating, you’re supporting the families of our real heroes — the bravehearts who gave their lives for our nation.
           </p>
+          <p className="text-base sm:text-lg mb-4 drop-shadow ">
+            We believe that true patriotism is when we stand by those who stood for us.
+          </p>
           <p className="text-base sm:text-lg mb-8 drop-shadow ">
-            We believe that true patriotism is when we stand by those who stood for us. Join us in the journey of impact and seva.
+            Join us in the journey of impact and seva.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
             <Link to="/donor/donate" className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-orange-600 transition">

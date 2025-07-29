@@ -176,6 +176,10 @@ const EventsPage = () => {
           </div>
         </div>
 
+
+
+        
+
         <div className="max-w-7xl mx-auto px-4 mb-8">
           <EventCategorySelector
             selectedCategory={selectedCategory}

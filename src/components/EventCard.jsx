@@ -9,7 +9,7 @@ const EventCard = ({ event }) => {
       className="
         w-[290px] h-[300px] bg-[#f1f1f3] p-6 
         rounded-xl shadow-md cursor-pointer relative 
-        font-sans group flex flex-col justify-between
+        font-sans group flex flex-col justify-between 
       "
     >
       <div>
