@@ -33,7 +33,7 @@ const handleSubmit = async (e) => {
 
   try {
     // 1. Create Razorpay Order
-    const orderRes = await fetch('http://localhost:5000/api/payment/create-order', {
+    const orderRes = await fetch('https://veero-ki-seva-backend.onrender.com/api/payment/create-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: form.amount })
