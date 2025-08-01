@@ -7,7 +7,7 @@ const ArmyDashboard = () => {
 
   return (
     <div className="min-h-screen relative">
-      <img src={bgImage} alt="Army" className="absolute inset-0 w-full h-full object-cover opacity-30" />
+      <img src={bgImage} alt="Army" className="absolute inset-0 w-full h-full object-cover opacity-70" />
       <div className="absolute inset-0 bg-black opacity-30"></div>
 
       <ArmyNavbar />

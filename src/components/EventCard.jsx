@@ -13,17 +13,17 @@ const EventCard = ({ event }) => {
       "
     >
       <div>
-        <h3 className="text-xl font-bold group-hover:text-green-700">
+        <h3 className="text-2xl font-bold group-hover:text-green-700">
           {event.title}
         </h3>
 
-        <p className="text-sm text-gray-700 mt-5">
+        <p className="text-m text-gray-700 mt-5">
           {event.description}
         </p>
       </div>
 
       <div className="flex justify-between items-center mt-4">
-        <div className="text-xs text-gray-500">
+        <div className="text-s text-gray-500">
           {new Date(event.date).toLocaleDateString()}
         </div>
 

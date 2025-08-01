@@ -5,9 +5,13 @@ import dummy1 from '../../assets/images/birthdayHome.png';
 import dummy2 from '../../assets/images/marrigeHome.png';
 import dummy3 from '../../assets/images/schoolHome.png';
 import dummy4 from '../../assets/images/hospitalHome.png';
+import dummy5 from '../../assets/images/cycle.png';
+import dummy6 from '../../assets/images/school2.png';
+
+
 
 const DonorHome = () => {
-  const cardImages = [dummy1, dummy2, dummy3, dummy4];
+  const cardImages = [dummy1, dummy2, dummy3, dummy4,dummy5,dummy6];
 
   return (
     <div className="relative min-h-screen">
@@ -71,7 +75,9 @@ const DonorHome = () => {
               "With donation from Rahul, martyr Subedar Param's son's birthday was celebrated.",
               "Thanks to Arnav, daughter of Major Ram was married with full honor.",
               "Veer Bal Vidyalaya was upgraded with new smart classes via your support.",
-              "Riya got treated with dengue; her medical bills were paid by donor Raj."
+              "Riya got treated with dengue; her medical bills were paid by donor Raj.",
+              "Thanks to your support, Aarav rode into his 6th birthday with a brand-new bicycle and the biggest smile on his face.",
+              "Your contributions helped young Aarav start his school year with new books, a fresh uniform, and renewed hope for the future."
             ];
             const msg = messages[idx % 4];
 
@@ -113,10 +119,9 @@ const DonorHome = () => {
           <div>
             <h2 className="text-xl font-bold mb-3">Connect With Us</h2>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-orange-600">Instagram</a>
-              <a href="#" className="hover:text-orange-600">LinkedIn</a>
-              <a href="#" className="hover:text-orange-600">Twitter</a>
-              <a href="#" className="hover:text-orange-600">GitHub</a>
+              <a href="https://www.linkedin.com/in/nishil-g" className="hover:text-orange-600">LinkedIn</a>
+              <a href="https://x.com/Ni5hil" className="hover:text-orange-600">Twitter</a>
+              <a href="https://github.com/Nishil-Gangrade" className="hover:text-orange-600">GitHub</a>
             </div>
           </div>
         </div>
