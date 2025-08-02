@@ -65,14 +65,14 @@ const DonorProfile = () => {
 
             {/* Profile Picture */}
             <div className="flex flex-col items-center mb-6">
-              <div className="w-32 h-32 rounded-full border-4 border-green-500 overflow-hidden bg-gray-100">
+              <div className="w-32 h-32 rounded-full border-4  overflow-hidden bg-gray-100">
                 <img
                   src={defaultProfilePic}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <p className="mt-3 italic text-sm text-gray-600">Default Profile Image</p>
+              
             </div>
 
             {/* Inputs */}

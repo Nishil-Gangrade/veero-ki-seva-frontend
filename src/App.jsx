@@ -1,4 +1,5 @@
 import React from 'react';
+import PrivateRoute from './components/PrivateRoute';
 import { Routes, Route } from 'react-router-dom';
 import DonorAuthPage from './pages/DonorAuthPage';
 import ArmyAuthPage from './pages/ArmyAuthPage';
@@ -30,28 +31,55 @@ const App = () => {
   return (
     <>
     <Routes>
-      <Route path="/" element={<RoleSelection />} />
-      {/* We'll add these pages next */}
-      <Route path="/login/donor" element={<DonorAuthPage />} />
-      <Route path="/login/army" element={<ArmyAuthPage/>} />
-      <Route path="/army/dashboard" element={<ArmyDashboard />} />
-      <Route path="/army/submit-event" element={<ArmySubmitEvent />} />
-      <Route path="/army/my-events" element={<ArmyMyEvents />} />
+        <Route path="/" element={<RoleSelection />} />
+        <Route path="/login/donor" element={<DonorAuthPage />} />
+        <Route path="/login/army" element={<ArmyAuthPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
-      <Route path="/donor/home" element={<DonorHome />} />
-      <Route path="/donor/events" element={<DonorEvents />} />
-      <Route path="/donor/donate" element={<DonorDonate />} />
-      <Route path="/donor/dashboard" element={<DonorDashboard />} />
-      <Route path="/donor/profile" element={<DonorProfile />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+        {/* Protected Army Routes */}
+        <Route
+          path="/army/dashboard"
+          element={<PrivateRoute><ArmyDashboard /></PrivateRoute>}
+        />
+        <Route
+          path="/army/submit-event"
+          element={<PrivateRoute><ArmySubmitEvent /></PrivateRoute>}
+        />
+        <Route
+          path="/army/my-events"
+          element={<PrivateRoute><ArmyMyEvents /></PrivateRoute>}
+        />
 
-      <Route path="/admin/login" element={<AdminLogin />} />
-      <Route path="/admin" element={<AdminLayout />}>
-      <Route path="events" element={<EventsPage />} />
-      <Route path="stats" element={<StatsPage />} />
-      </Route>
-    </Routes>
+        {/* Protected Donor Routes */}
+        <Route
+          path="/donor/home"
+          element={<PrivateRoute><DonorHome /></PrivateRoute>}
+        />
+        <Route
+          path="/donor/events"
+          element={<PrivateRoute><DonorEvents /></PrivateRoute>}
+        />
+        <Route
+          path="/donor/donate"
+          element={<PrivateRoute><DonorDonate /></PrivateRoute>}
+        />
+        <Route
+          path="/donor/dashboard"
+          element={<PrivateRoute><DonorDashboard /></PrivateRoute>}
+        />
+        <Route
+          path="/donor/profile"
+          element={<PrivateRoute><DonorProfile /></PrivateRoute>}
+        />
+
+        {/* Admin Routes (optional: protect if needed) */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="events" element={<EventsPage />} />
+          <Route path="stats" element={<StatsPage />} />
+        </Route>
+      </Routes>
     <ChatbotWidget />
     <ToastContainer />
 

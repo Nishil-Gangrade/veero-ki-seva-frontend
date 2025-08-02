@@ -80,24 +80,6 @@ const EventsPage = () => {
       );
     }
 
-    switch (sortBy) {
-      case 'newest':
-        filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-        break;
-      case 'urgent':
-        filtered.sort((a, b) => (b.urgent || 0) - (a.urgent || 0));
-        break;
-      case 'amount':
-        filtered.sort((a, b) => (b.targetAmount || 0) - (a.targetAmount || 0));
-        break;
-      case 'progress':
-        filtered.sort((a, b) => {
-          const progressA = ((a.raisedAmount || 0) / (a.targetAmount || 1)) * 100;
-          const progressB = ((b.raisedAmount || 0) / (b.targetAmount || 1)) * 100;
-          return progressB - progressA;
-        });
-        break;
-    }
 
     setTimeout(() => {
       setFilteredEvents(filtered);
@@ -140,7 +122,7 @@ const EventsPage = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-              { icon: Heart, label: 'Active Events', value: stats.activeEvents, color: 'text-red-400' },
+              { icon: Heart, label: 'Active Events', value: 12, color: 'text-red-400' },
               { icon: Users, label: 'Total Donors', value: stats.totalDonors, color: 'text-blue-400' },
               { icon: Target, label: 'Total Events', value: stats.totalEvents, color: 'text-green-400' },
               { icon: TrendingUp, label: 'Funds Raised', value: `₹${(stats.totalRaised / 100000).toFixed(1)}L`, color: 'text-orange-400' }
@@ -154,28 +136,8 @@ const EventsPage = () => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 mb-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center">
-            <input
-              type="text"
-              placeholder="Search events..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-1 px-4 py-3 rounded-xl border bg-white/20 text-white placeholder-white/70 focus:outline-none"
-            />
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-3 rounded-xl bg-white/20 text-white"
-            >
-              <option value="newest">Newest</option>
-              <option value="urgent">Most Urgent</option>
-              <option value="amount">Highest Amount</option>
-              <option value="progress">Most Progress</option>
-            </select>
-          </div>
-        </div>
-
+        
+    
 
 
         

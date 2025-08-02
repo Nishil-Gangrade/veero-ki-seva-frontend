@@ -15,7 +15,7 @@ const DonorNavbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     sessionStorage.clear();
-    navigate("/login");
+    navigate("/login",{ replace: true });
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const DonorNavbar = () => {
       {/* === TOP NAV === */}
       {!isMobile || !isScrolled ? (
         <nav className={`fixed top-0 left-0 w-full transition-all duration-500 
-  ${isMobile ? "z-50" : isScrolled ? "z-0" : "z-50 bg-stone-900 bg-opacity-80"}
+  ${isMobile ? "z-50 bg-stone-900 bg-opacity-80" : isScrolled ? "z-0" : "z-50 bg-stone-900 bg-opacity-80"}
 `}>
 
           <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">

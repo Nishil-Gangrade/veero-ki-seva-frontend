@@ -79,7 +79,7 @@ const DonorHome = () => {
               "Thanks to your support, Aarav rode into his 6th birthday with a brand-new bicycle and the biggest smile on his face.",
               "Your contributions helped young Aarav start his school year with new books, a fresh uniform, and renewed hope for the future."
             ];
-            const msg = messages[idx % 4];
+            const msg = messages[idx % 6];
 
             return (
               <div key={idx} className="inline-block w-64 h-64 mx-4 relative group overflow-hidden rounded-xl">
@@ -88,7 +88,7 @@ const DonorHome = () => {
                   alt={`Card ${idx}`}
                   className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center text-sm text-white p-4 text-center">
+                <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center text-wrap text-sm text-white px-3 text-center leading-snug">
                   {msg}
                 </div>
               </div>
@@ -102,12 +102,17 @@ const DonorHome = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
             <h2 className="text-xl font-bold mb-3">About VEEROKISEVA</h2>
-            <p className="text-sm text-gray-700">
-              A tech-for-good initiative to empower the unsung families of India’s brave soldiers through community participation, transparency, and service.
-            </p>
+<p className="text-sm text-gray-700 leading-relaxed">
+  <span className="font-semibold text-black">VEEROKISEVA</span> is a <span className="text-orange-600 font-medium">tech-for-good initiative</span> dedicated to honoring the sacrifices of our brave Indian soldiers by supporting their families — the unsung heroes left behind.
+  <br /><br />
+  Through a transparent and community-driven platform, we connect donors, volunteers, and organizations to directly uplift martyrs’ families. Whether it’s funding a child’s education, sponsoring a daughter’s wedding, or supporting elderly parents, every contribution creates real impact.
+  
+</p>
+
+
           </div>
           <div>
-            <h2 className="text-xl font-bold mb-3">Explore</h2>
+            <h2 className="text-xl font-bold mb-3 ">Explore</h2>
             <ul className="text-sm space-y-2">
               <li><a href="#" className="hover:text-orange-600">Who We Are</a></li>
               <li><a href="#" className="hover:text-orange-600">Our Aim</a></li>
@@ -126,23 +131,29 @@ const DonorHome = () => {
           </div>
         </div>
       </footer>
+      
 
       {/* Animation Styles */}
       <style>{`
-        .horizontal-scroll {
-          display: inline-block;
-          white-space: nowrap;
-        }
+  .horizontal-scroll {
+    display: inline-block;
+    white-space: nowrap;
+  }
 
-        @keyframes scrollLeft {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
+  @keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 
-        .animate-scroll {
-          animation: scrollLeft 30s linear infinite;
-        }
-      `}</style>
+  .animate-scroll {
+    animation: scrollLeft 30s linear infinite;
+  }
+
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+`}</style>
+
     </div>
   );
 };
