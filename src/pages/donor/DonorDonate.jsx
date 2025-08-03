@@ -225,7 +225,27 @@ const handleSubmit = async (e) => {
               </table>
             </div>
           )}
+
         </div>
+        {/* Appreciation Marquee */}
+<div className="w-full bg-black text-slate-100 font-medium py-3 overflow-hidden relative shadow-inner">
+  <div className="whitespace-nowrap animate-marquee px-4">
+    Thank you for your donation and for being part of our helpful journey. &nbsp;&nbsp;&nbsp;
+    On donations above ₹5000, you may be invited to attend exclusive Army-organized donation events. &nbsp;&nbsp;&nbsp;
+    You’ll receive your donation invoice shortly via email. Jai Hind 🇮🇳
+    <style>{`
+  @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  .animate-marquee {
+    display: inline-block;
+    min-width: 100%;
+    animation: marquee 30s linear infinite;
+  }
+`}</style>
+  </div>
+</div>
       </div>
     </div>
   );

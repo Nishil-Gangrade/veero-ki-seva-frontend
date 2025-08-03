@@ -64,7 +64,7 @@ const ChatbotWidget = () => {
     <>
       {/* Floating Chat Button */}
       <button
-        className="fixed bottom-5 right-5 z-50 bg-orange-600 text-white p-4 rounded-full shadow-lg hover:bg-orange-700 transition-all"
+        className="fixed bottom-16 right-5 z-50 bg-orange-600 text-white p-4 rounded-full shadow-lg hover:bg-orange-700 transition-all"
         onClick={() => setIsOpen(!isOpen)}
       >
         <MessageCircle className="w-5 h-5" />
